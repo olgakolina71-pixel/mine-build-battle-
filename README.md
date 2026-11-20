@@ -12,11 +12,15 @@ Minecraft Bedrock AI build-battle project. The goal is an AI architect that crea
 - [x] OpenAI-compatible model endpoint support (provider-agnostic)
 - [x] Server-side validation and limits
 - [x] Unit tests + GitHub Actions test workflow
-- [x] Dockerfile for backend\n- [x] Blueprint-to-`.mcfunction` export endpoint\n- [x] Exporter unit tests
+- [x] Dockerfile for backend
+- [x] Blueprint-to-`.mcfunction` export endpoint
+- [x] Exporter unit tests
+- [x] Mobile-friendly standalone web UI (`frontend/index.html`)
 - [x] Architecture and schema documentation
 
 ### Not yet integrated
-- [x] Export blueprint into relative Bedrock `setblock` function (manual import step remains)\n- [ ] Send generated blueprint from backend to Minecraft executor
+- [x] Export blueprint into relative Bedrock `setblock` function (manual import step remains)
+- [ ] Send generated blueprint from backend to Minecraft executor
 - [ ] Automated build-command / transfer bridge
 - [ ] Visual screenshot QA and iterative repair
 - [ ] AI build battle timer and plot isolation
@@ -24,6 +28,10 @@ Minecraft Bedrock AI build-battle project. The goal is an AI architect that crea
 
 ## Bedrock prototype
 Copy `bedrock-pack` into your development behavior packs folder, activate it in a test world, and type `!build`. The current game script places its embedded sample blueprint; generated blueprints are not yet connected to the in-game script. Use a backup world.
+
+## Mobile UI
+
+Open `frontend/index.html` in a browser (or publish the `frontend` folder using GitHub Pages). Enter the backend API URL, theme and limits, then generate. The page displays the validated JSON and can export a `.mcfunction` file. Browser-to-backend requests require CORS to be configured on the server if the UI is hosted on a different origin. The UI is not a direct Minecraft connection yet.
 
 ## Architect API
 See [backend/README.md](backend/README.md). API:
