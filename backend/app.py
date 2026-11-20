@@ -3,7 +3,7 @@ import json, os, re
 from typing import Any
 import httpx
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field\nfrom exporter import to_mcfunction
 
 app = FastAPI(title="Mine Build Battle Architect", version="0.1.0")
 MAX_BLOCKS = 2000
@@ -54,7 +54,7 @@ def validate(payload: dict):
     try: return {"valid":True,"blueprint":validate_blueprint(payload)}
     except ValueError as e: raise HTTPException(422,str(e))
 
-@app.post("/generate")
+@app.post("/export/mcfunction")\ndef export_mcfunction(payload: dict):\n    try:\n        content = to_mcfunction(payload)\n        return {"filename": "generated_build.mcfunction", "content": content, "command_count": len(payload["blocks"])}\n    except ValueError as e:\n        raise HTTPException(422, str(e))\n\n@app.post("/generate")
 async def generate(req: GenerateRequest):
     api_url=os.getenv("ARCHITECT_API_URL"); model=os.getenv("ARCHITECT_MODEL"); key=os.getenv("ARCHITECT_API_KEY")
     if not api_url or not model: raise HTTPException(503,"Architect provider not configured. Set ARCHITECT_API_URL and ARCHITECT_MODEL.")
