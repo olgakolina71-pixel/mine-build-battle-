@@ -1,39 +1,52 @@
 # Mine Build Battle
 
-An AI Minecraft Bedrock build-battle project: an architect produces a neutral JSON blueprint, a validator checks it, and a Bedrock behavior pack places the blocks.
+Minecraft Bedrock AI build-battle project. The goal is an AI architect that creates detailed voxel designs, a validator, and a builder that places them in a separate plot. The YouTube audience judges the final reveal.
 
-## Current MVP
-- Blueprint format: `blueprint.json`
-- Validation: bounds, block allow-list, duplicates, and block-count limits
-- Bedrock behavior pack with a sample build
-- In-world trigger: type `!build` in chat to place the sample at the executor's location
-- Placement is batched to avoid freezing the world
+## Repository status
 
-## Quick start (Bedrock)
-1. Copy `bedrock-pack` into your Minecraft development_behavior_packs folder (or package it as a .mcpack).
-2. Enable the behavior pack in a test world and enable Script API experiments if your version requires them.
-3. Open the world and type `!build` in chat.
+### Implemented
+- [x] Blueprint v1 JSON format
+- [x] Bedrock behavior-pack prototype with batched placement
+- [x] In-game `!build` trigger for starter house
+- [x] Python FastAPI architect/validation service
+- [x] OpenAI-compatible model endpoint support (provider-agnostic)
+- [x] Server-side validation and limits
+- [x] Unit tests + GitHub Actions test workflow
+- [x] Dockerfile for backend
+- [x] Architecture and schema documentation
 
-The MVP places the sample blueprint relative to the player. This is a prototype; use a backup world when testing.
+### Not yet integrated
+- [ ] Send generated blueprint from backend to Minecraft executor
+- [ ] Build-command / transfer bridge
+- [ ] Visual screenshot QA and iterative repair
+- [ ] AI build battle timer and plot isolation
+- [ ] Minecraft pack packaging/download release
 
-## Blueprint format
-```json
-{
-  "version": 1,
-  "name": "Starter House",
-  "size": {"x": 9, "y": 6, "z": 9},
-  "blocks": [{"x": 0, "y": 0, "z": 0, "block": "minecraft:stone"}]
-}
+## Bedrock prototype
+Copy `bedrock-pack` into your development behavior packs folder, activate it in a test world, and type `!build`. The current game script places its embedded sample blueprint; generated blueprints are not yet connected to the in-game script. Use a backup world.
+
+## Architect API
+See [backend/README.md](backend/README.md). API:
+- `GET /health`
+- `POST /validate`
+- `POST /generate`
+
+It can use a compatible chat-completions endpoint configured with environment variables. **Never commit API keys.** Do not put provider credentials in the behavior pack or share them with other players.
+
+## Test
+```bash
+cd backend
+pip install -r requirements.txt pytest
+pytest
 ```
-Coordinates are local, non-negative integers. The origin is the southwest-bottom corner.
 
-## Roadmap
-1. [x] Neutral blueprint schema + sample
-2. [x] Bedrock batched executor prototype
-3. [x] Blueprint validation and safety caps
-4. [ ] Architect adapter (model/API)
-5. [ ] Screenshot-based visual QA and repair loop
-6. [ ] Battle timer, plots, and export/import
+## Docs
+- [Architecture](docs/architecture.md)
+- [Blueprint schema](docs/blueprint-schema.md)
+- [Backend setup](backend/README.md)
 
-## Safety limits
-The executor refuses builds above 2,000 blocks and limits each tick's batch. Only blocks in its allow-list are accepted.
+## Next milestones
+1. Add blueprint transport/import into Bedrock (safe and local-first).
+2. Create larger themed sample blueprints and improve architecture prompt.
+3. Add screenshot-based review with explicit user approval before repair.
+4. Build the fair competition mode: equal plots, timer, same constraints, simultaneous reveal.
