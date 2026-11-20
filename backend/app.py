@@ -6,10 +6,13 @@ from typing import Any
 
 import httpx
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from exporter import to_mcfunction
 
 app = FastAPI(title="Mine Build Battle Architect", version="0.1.0")
+_origins = [v.strip() for v in os.getenv("CORS_ORIGINS", "*").split(",") if v.strip()]
+app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["GET", "POST"], allow_headers=["Content-Type", "Authorization"])
 MAX_BLOCKS = 2000
 MAX_AXIS = 64
 ALLOWED = {
