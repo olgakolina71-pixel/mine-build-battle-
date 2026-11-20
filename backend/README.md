@@ -23,3 +23,7 @@ The server returns a validated blueprint or a clear error. API keys must be stor
 
 ## Integration note
 The Bedrock prototype currently uses an embedded sample because network calls from in-game scripts are restricted by platform/version. The architect API is a separate service; next integration stage is a secure import/transfer mechanism (for example, a generated blueprint file or dedicated BDS bridge), not exposing provider credentials inside the behavior pack.
+
+### Browser UI / CORS
+
+The standalone UI in `../frontend/index.html` can call this API from a browser. Set `CORS_ORIGINS` to a comma-separated list of allowed origins (or `*` for a public demo without credentials). The UI sends no API keys. Keep provider credentials server-side.
