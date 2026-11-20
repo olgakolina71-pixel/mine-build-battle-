@@ -31,7 +31,7 @@ Copy `bedrock-pack` into your development behavior packs folder, activate it in 
 
 ## Mobile UI
 
-Open `frontend/index.html` in a browser (or publish the `frontend` folder using GitHub Pages). Enter the backend API URL, theme and limits, then generate. The page displays the validated JSON and can export a `.mcfunction` file. Browser-to-backend requests require CORS to be configured on the server if the UI is hosted on a different origin. The UI is not a direct Minecraft connection yet.
+The repository includes a GitHub Pages deployment workflow (`.github/workflows/deploy-frontend.yml`). After enabling Pages in repository Settings → Pages → Build and deployment → GitHub Actions, the site should publish at `https://olgakolina71-pixel.github.io/mine-build-battle-/`. You can also open `frontend/index.html` locally. Enter the backend API URL, theme and limits, then generate. The page displays the validated JSON and can export a `.mcfunction` file. Browser-to-backend requests require CORS to be configured on the server if the UI is hosted on a different origin. The UI is not a direct Minecraft connection yet.
 
 ## Architect API
 See [backend/README.md](backend/README.md). API:
