@@ -13,7 +13,7 @@ ALLOWED = {
  "minecraft:stone","minecraft:cobblestone","minecraft:bricks","minecraft:stone_bricks",
  "minecraft:oak_door","minecraft:oak_leaves","minecraft:torch","minecraft:lantern",
  "minecraft:white_wool","minecraft:red_wool","minecraft:blue_wool","minecraft:grass_block",
- "minecraft:dirt","minecraft:sand","minecraft:water","minecraft: spruce_planks"
+ "minecraft:dirt","minecraft:sand","minecraft:water","minecraft:spruce_planks"
 }
 
 class GenerateRequest(BaseModel):
@@ -65,7 +65,7 @@ async def generate(req: GenerateRequest):
     try:
         async with httpx.AsyncClient(timeout=90) as client: r=await client.post(api_url,headers=headers,json=body)
         r.raise_for_status(); data=r.json(); text=data["choices"][0]["message"]["content"]
-        match=re.search(r"\\{.*\\}",text,re.S)
+        match=re.search(r"\{.*\}",text,re.S)
         if not match: raise ValueError("Model response did not contain JSON")
         bp=validate_blueprint(json.loads(match.group(0)))
         if len(bp["blocks"])>req.block_budget: raise ValueError("Generated blueprint exceeds requested budget")
