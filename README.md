@@ -12,12 +12,12 @@ Minecraft Bedrock AI build-battle project. The goal is an AI architect that crea
 - [x] OpenAI-compatible model endpoint support (provider-agnostic)
 - [x] Server-side validation and limits
 - [x] Unit tests + GitHub Actions test workflow
-- [x] Dockerfile for backend
+- [x] Dockerfile for backend\n- [x] Blueprint-to-`.mcfunction` export endpoint\n- [x] Exporter unit tests
 - [x] Architecture and schema documentation
 
 ### Not yet integrated
-- [ ] Send generated blueprint from backend to Minecraft executor
-- [ ] Build-command / transfer bridge
+- [x] Export blueprint into relative Bedrock `setblock` function (manual import step remains)\n- [ ] Send generated blueprint from backend to Minecraft executor
+- [ ] Automated build-command / transfer bridge
 - [ ] Visual screenshot QA and iterative repair
 - [ ] AI build battle timer and plot isolation
 - [ ] Minecraft pack packaging/download release
